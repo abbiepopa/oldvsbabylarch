@@ -34,3 +34,17 @@ ldcu<-larch_dir_count_unique
 
 ldcu$larch_dir<-as.character(ldcu$larch_dir)
 write.csv(ldcu, "unique_larch_files.csv", row.names=F)
+
+###step 2, complete after intern work###
+setwd("~/Documents/Lab/oldvsbabylarch/data")
+d<-read.csv("unique_larch_files.csv")
+colnames(d)<-c("larch_dir","Freq","larch.type","full.path","full.path.2","full.path.3","full.path.4","full.path.5","full.path.6","full.path.7","full.path.8","full.path.9","full.path.10","full.path.11")
+
+library(reshape)
+dl<-melt(d, id=c("larch_dir","Freq","larch.type"))
+
+old<-dl[which(dl$larch.type == "oldlarch"),]
+
+dirs<-levels(factor(as.character(old$value)))
+
+write.csv(dirs, "needed.csv",row.names=F)
