@@ -1,28 +1,35 @@
 setwd("~/Documents/Lab/oldvsbabylarch/data")
 
+#read in full list of participants from old server (named larch)
 old<-read.table("oldlarch.txt")
+
+#read in full list of participants from new server
 baby<-read.table("babylarch.txt")
 
+#files must be strings not factors in order to bind
 old$V1<-as.character(old$V1)
 baby$V1<-as.character(baby$V1)
 
+#add a line that says "baby" so we know where the new server files begin
 baby<-rbind("baby",baby)
 
+#find files that are only on one server or the other
 larch<-unique(rbind(old, baby))
 
+#list of all files is very long, so we will also make a list of unique directories
+
+#directories have colons in their names
 baby_dir<-baby[grep(":",baby$V1),]
 old_dir<-old[grep(":", old$V1),]
 
 #baby_dir<-c("baby",baby_dir)
 
-larch_dir<-c(old_dir, baby_dir)
 
+larch_dir<-c(old_dir, baby_dir)
 larch_dir_count <- table(larch_dir)
 
 #baby_dir<-c(baby_dir, rep(NA, 3031))
-
 #larch_dir_2<-data.frame(old_dir, baby_dir)
-
 #larch_dir_2$old_dir<-as.character(larch_dir_2$old_dir)
 #larch_dir_2$baby_dir<-as.character(larch_dir_2$baby_dir)
 
